@@ -30,3 +30,20 @@ ai-ml-internship/
 │   └── train.py
 ├── numpy_basics.py     # NumPy foundational notes and exercises
 └── README.md           # Project documentationgit add README.md
+
+# Week 1 Day 2: Pandas Data Manipulation & Export Analysis
+
+## 📁 Project Folder Structure
+* `venv/` - Virtual environment folder for managing Python dependencies and libraries.
+* `pandas_manipulation.py` - Core script implementing data loading, filtering, groupby aggregations, merging, and pivot tables.
+* `cleaned_dataset.csv` - Exported processed dataset in CSV format.
+* `cleaned_dataset.parquet` - Space-efficient compressed output dataset in Parquet format.
+
+## 🛠️ Key Python Modules & Files
+* **`pandas_manipulation.py`**: 
+  - Loads a real-world dataset into a Pandas DataFrame and inspects its shape, data types, and first 10 rows.
+  - Performs advanced data filtering (e.g., survival and class conditions).
+  - Computes group-based metrics using `groupby()`, data combinations using `merge()`, and summary tables using `pivot_table()`.
+  - Exports data into both CSV and Parquet formats, validating that Parquet is significantly more space-efficient (approximately 1.6x smaller).
+
+## 📊 Data Flow Diagram
