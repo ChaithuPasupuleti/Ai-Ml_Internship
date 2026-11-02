@@ -21,3 +21,5 @@ correlation_matrix = np.corrcoef(data, rowvar=False)
 print("Means:", mean_vals)
 print("Standard Deviations:", std_vals)
 print("Correlation Matrix:\n", correlation_matrix)
+# day 1 completed
+
