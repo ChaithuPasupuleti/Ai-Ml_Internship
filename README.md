@@ -19,3 +19,14 @@ Day 3 focuses on robust data ingestion, schema validation, missing value sanitiz
    Ensure your virtual environment is active and required packages are installed:
    ```bash
    pip install -r requirements.txt
+
+   ## 📊 Day 4: Exploratory Data Analysis (EDA)
+
+### Files
+- `eda.py` - runs describe(), info(), null checks and saves all plots
+- `observations.md` - 5 observations from the summary stats
+- `eda_narrative.md` - 200-word EDA narrative
+- `outputs/` - distributions, correlation heatmap, top-10 category charts
+
+### Run
+python eda.py
