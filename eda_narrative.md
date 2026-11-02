@@ -1,7 +1,8 @@
 # Exploratory Data Analysis (EDA) Narrative
 
 ## 1. What the Data Shows
-The analyzed dataset contains passenger records with a mix of numerical and categorical features such as Age, Fare, Pclass, Sex, and Embarked. Distribution plots reveal that passenger ages are moderately right-skewed with a peak among young adults, while fare prices show a heavy concentration of lower-cost tickets with extreme high-value outliers. Category counts highlight distinct groupings across classes and embarkation points, establishing foundational demographic patterns.The correlation heatmap shows Fare and Pclass have the strongest relationship (r = -0.55), meaning higher-class passengers paid more, while Parch and SibSp follow at r = 0.41.
+The analyzed dataset contains passenger records with a mix of numerical and categorical features such as Age, Fare, Pclass, Sex, and Embarked. Distribution plots reveal that passenger ages are moderately right-skewed with a peak among young adults, while fare prices show a heavy concentration of lower-cost tickets with extreme high-value outliers. Category counts highlight distinct groupings across classes and embarkation points, establishing foundational demographic patterns.
+The correlation heatmap shows Fare and Pclass have the strongest relationship (r = -0.55), meaning higher-class passengers paid more, while Parch and SibSp follow at r = 0.41.
 
 ## 2. What is Suspicious
 Several data anomalies are immediately apparent. The Age column contains 177 missing values, and the Cabin column has a critical deficit with 687 missing entries out of the total rows. Additionally, extreme outliers in fare prices and sparse categorical distributions indicate potential noise or skewed collection metrics that could distort predictive performance if left unaddressed.
