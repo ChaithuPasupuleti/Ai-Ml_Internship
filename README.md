@@ -29,4 +29,3 @@ Day 3 focuses on robust data ingestion, schema validation, missing value sanitiz
 - `outputs/` - distributions, correlation heatmap, top-10 category charts
 
 ### Run
-python eda.py
