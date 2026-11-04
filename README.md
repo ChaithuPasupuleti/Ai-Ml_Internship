@@ -19,3 +19,23 @@ Day 3 focuses on robust data ingestion, schema validation, missing value sanitiz
    Ensure your virtual environment is active and required packages are installed:
    ```bash
    pip install -r requirements.txt
+
+   ## 📊 Day 4: Exploratory Data Analysis (EDA)
+
+### Files
+- `eda.py` - runs describe(), info(), null checks and saves all plots
+- `observations.md` - 5 observations from the summary stats
+- `eda_narrative.md` - 200-word EDA narrative
+- `outputs/` - distributions, correlation heatmap, top-10 category charts
+
+### Run
+
+### Day 5: Data Visualization (Matplotlib & Seaborn)
+* **Objective:** Complete hands-on tasks for exploratory data visualization using Matplotlib and Seaborn.
+* **Key Tasks Implemented:**
+  * Generated distribution plots to analyze data spread and skewness (e.g., Age, Fare).
+  * Created categorical comparison and count plots.
+  * Developed correlation heatmaps to identify feature relationships.
+  * Authored exploratory data analysis (EDA) narratives and observations.
+* **Outputs:** Visualizations and plots saved to the project directory.
+*
