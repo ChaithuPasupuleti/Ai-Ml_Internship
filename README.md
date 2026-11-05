@@ -41,7 +41,7 @@ Day 3 focuses on robust data ingestion, schema validation, missing value sanitiz
 *
 
 
-### week 2 Day 1: Feature Engineering Pipeline (Scaling, Encoding, & Selection)
+### Week 2 Day 1: Feature Engineering Pipeline (Scaling, Encoding, & Selection)
 * **Objective:** Build an end-to-end, leak-free preprocessing and feature selection pipeline using `scikit-learn`.
 * **Key Implementations:**
   * **Missing Value Imputation:** Handled numeric columns using median imputation and categorical columns using most-frequent imputation.
