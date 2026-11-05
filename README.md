@@ -1,32 +1,41 @@
-# AI-ML Internship Project - Week 1: Foundation
+## 🚀 Day 3: Data Loading, Cleaning & Inspection
 
-## 1. Project Overview
-An end-to-end machine learning pipeline workspace built for model tracking, data manipulation, and experimentation using Python, Pandas, Scikit-Learn, and MLflow.
+### **Overview**
+Day 3 focuses on robust data ingestion, schema validation, missing value sanitization, and automated unit testing adhering to MLOps best practices (PEP-8 formatting, linting, and safe path guards).
 
-## 2. Literature & Repository Reviews (3 References)
-* **Reference 1: Scikit-Learn Documentation & Best Practices**
-  * *Summary:* Focuses on standardized data preprocessing pipelines, feature scaling, and consistent model evaluation interfaces.
-* **Reference 2: MLflow Tracking Server Architecture**
-  * *Summary:* Explores centralized experiment logging, metric tracking, and artifact storage for reproducible machine learning workflows.
-* **Reference 3: NumPy Vectorized Operations in Data Pipelines**
-  * *Summary:* Highlights high-performance array manipulation and memory efficiency essential for large-scale feature engineering.
+---
 
-## 3. Model Architecture & Evaluation Metrics
-* **Model Architecture:** Baseline classification/regression pipeline using Scikit-Learn estimators, structured with modular preprocessing and inference transformers.
-* **Evaluation Metrics:** 
-  * Classification: Accuracy, Precision, Recall, F1-Score, and ROC-AUC.
-  * Regression: Mean Squared Error (MSE), Root Mean Squared Error (RMSE), and $R^2$ Score.
+### **📁 Core Modules & Files**
+* `data_loader.py` - Core script responsible for robust data ingestion, fallback paths, and schema validation.
+* `data_cleaning.py` - Handles missing value treatment, null dropping, and dataset sanitization with empty-DataFrame guards.
+* `tests/test_data_loader.py` - Unit test suite utilizing `pytest` and `tmp_path` fixtures to validate data loader and cleaner functions.
+* `LICENSE` - Open-source MIT License for project distribution.
 
-## 4. Data Pipeline Skeleton
-The project directory structure is organized as follows:
-```text
-ai-ml-internship/
-│
-├── data/               # Raw and processed data storage
-├── notebooks/          # Exploratory data analysis notebooks
-├── src/                # Source code for data ingestion, preprocessing, and training
-│   ├── __init__.py
-│   ├── preprocess.py
-│   └── train.py
-├── numpy_basics.py     # NumPy foundational notes and exercises
-└── README.md           # Project documentationgit add README.md
+---
+
+### **⚡ Quick Start & Execution Guide**
+
+1. **Install Dependencies:**
+   Ensure your virtual environment is active and required packages are installed:
+   ```bash
+   pip install -r requirements.txt
+
+   ## 📊 Day 4: Exploratory Data Analysis (EDA)
+
+### Files
+- `eda.py` - runs describe(), info(), null checks and saves all plots
+- `observations.md` - 5 observations from the summary stats
+- `eda_narrative.md` - 200-word EDA narrative
+- `outputs/` - distributions, correlation heatmap, top-10 category charts
+
+### Run
+
+### Day 5: Data Visualization (Matplotlib & Seaborn)
+* **Objective:** Complete hands-on tasks for exploratory data visualization using Matplotlib and Seaborn.
+* **Key Tasks Implemented:**
+  * Generated distribution plots to analyze data spread and skewness (e.g., Age, Fare).
+  * Created categorical comparison and count plots.
+  * Developed correlation heatmaps to identify feature relationships.
+  * Authored exploratory data analysis (EDA) narratives and observations.
+* **Outputs:** Visualizations and plots saved to the project directory.
+*
