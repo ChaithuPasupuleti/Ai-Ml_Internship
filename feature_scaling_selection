@@ -1,0 +1,88 @@
+#day 2 feature scaling and selection tasks
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from sklearn.datasets import make_classification
+from sklearn.feature_selection import SelectKBest, chi2, f_classif
+from sklearn.preprocessing import MinMaxScaler, Normalizer, RobustScaler, StandardScaler
+
+# --- TASK 1: Scalers & Skewed Data ---
+# Sample data with a simulated skewed column/outlier
+np.random.seed(42)
+data = {
+    "feature_1": np.random.normal(loc=50, scale=5, size=100),
+    "feature_2": np.concatenate(
+        [np.random.normal(loc=10, scale=2, size=95), [100, 150, 200, 250, 300]]
+    ),  # Skewed with outliers
+}
+df = pd.DataFrame(data)
+
+# Initialize Scalers
+std_scaler = StandardScaler()
+minmax_scaler = MinMaxScaler()
+robust_scaler = RobustScaler()
+normalizer = Normalizer()
+
+# Apply Scalers
+df_standardized = pd.DataFrame(
+    std_scaler.fit_transform(df), columns=df.columns
+)
+df_minmax = pd.DataFrame(minmax_scaler.fit_transform(df), columns=df.columns)
+df_robust = pd.DataFrame(robust_scaler.fit_transform(df), columns=df.columns)
+df_normalized = pd.DataFrame(normalizer.fit_transform(df), columns=df.columns)
+
+print("--- Task 1: Scaler Results ---")
+print("Standardized Data Preview:\n", df_standardized.head())
+print("\nRobust Scaled Data Preview:\n", df_robust.head())
+
+
+# --- TASK 2: SelectKBest (f_classif vs chi2) ---
+# Generate a classification dataset for feature selection tasks
+X_clf, y_clf = make_classification(
+    n_samples=100, n_features=5, n_informative=3, random_state=42
+)
+
+# Note: chi2 requires non-negative features. Use MinMaxScaler for chi2 inputs.
+X_clf_non_negative = minmax_scaler.fit_transform(X_clf)
+
+# 1. SelectKBest using f_classif (ANOVA F-value)
+selector_f = SelectKBest(score_func=f_classif, k=3)
+selector_f.fit(X_clf, y_clf)
+scores_f = selector_f.scores_
+
+# 2. SelectKBest using chi2 (Chi-Square)
+selector_chi = SelectKBest(score_func=chi2, k=3)
+selector_chi.fit(X_clf_non_negative, y_clf)
+scores_chi = selector_chi.scores_
+
+print("\n--- Task 2: SelectKBest Results ---")
+print("f_classif Scores:", scores_f)
+print("chi2 Scores:", scores_chi)
+# --- TASK 3: RFE (Recursive Feature Elimination) ---
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LogisticRegression
+
+# Generate a dataset with more features to properly demonstrate RFE selecting top 5
+X_rfe, y_rfe = make_classification(
+    n_samples=100, n_features=8, n_informative=5, random_state=42
+)
+
+# Initialize Logistic Regression estimator and RFE to select top 5 features
+estimator = LogisticRegression()
+rfe = RFE(estimator=estimator, n_features_to_select=5)
+rfe.fit(X_rfe, y_rfe)
+
+print("\n--- Task 3: RFE Results ---")
+print("Feature Support (True = Selected, False = Eliminated):", rfe.support_)
+print("Feature Rankings (1 = Selected):", rfe.ranking_)
+
+# Log which features were eliminated and why
+for i, (support, rank) in enumerate(zip(rfe.support_, rfe.ranking_)):
+  if support:
+    print(f"Feature {i+1}: Selected (Rank {rank})")
+  else:
+    print(
+        f"Feature {i+1}: Eliminated (Rank {rank}) - Reason: Removed iteratively"
+        " because it had the lowest model coefficient/importance score among"
+        " the remaining features."
+    )
