@@ -77,4 +77,20 @@ Day 2 focuses on advanced feature engineering techniques, examining how differen
 
 1. **Install Dependencies:** Ensure your environment has the required libraries installed:
    ```bash
-   pip install -r requirements.txt
+   pip install -r requirements.txt 
+
+   ## Week 2 - Day 3: Imbalanced Data Pipeline & MLflow Tracking
+
+### 🚀 What Was Accomplished
+* **Imbalanced Dataset Handling:** Implemented a robust `imbalanced-learn` pipeline (`ImbPipeline`) integrating `SMOTENC` to handle mixed numerical and categorical features for class imbalance.
+* **Feature Processing Setup:** Configured a `ColumnTransformer` with `StandardScaler` for numerical attributes and an `OrdinalEncoder` for categorical columns.
+* **Model Training:** Trained a `RandomForestClassifier` (with 200 estimators and balanced class weights) on the resampled training split.
+* **MLflow Tracking Integration:** 
+  * Set up MLflow tracking experiments (`SMOTE_Imbalanced_Classification`)[span_0](start_span)[span_0](end_span).
+  * Logged key parameters (`model`, `n_estimators`, `class_weight`, `smote_k_neighbors`, `random_state`) and performance metrics (`precision macro`, `recall macro`, `f1 macro`)[span_1](start_span)[span_1](end_span)[span_2](start_span)[span_2](end_span).
+  * Secured model logging using `skops_trusted_types` to whitelist custom third-party components like `SMOTENC`.
+* **Model Serialization:** Successfully exported and saved the end-to-end trained pipeline locally as `smote_rf_pipeline.pkl` for downstream inference[span_3](start_span)[span_3](end_span).
+
+### 📊 Evaluation Results
+* Evaluated model performance on the test set using classification reports, tracking macro averages and class-specific metrics to ensure reliable handling of minority classes.
+*  
