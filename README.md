@@ -94,3 +94,98 @@ Day 2 focuses on advanced feature engineering techniques, examining how differen
 ### 📊 Evaluation Results
 * Evaluated model performance on the test set using classification reports, tracking macro averages and class-specific metrics to ensure reliable handling of minority classes.
 *  
+
+# Week 2 day 4: Train/Test Split, Cross-Validation and MLflow Experiment Tracking
+
+### Task Prompt
+Build a reproducible machine learning workflow in Python that:
+1. Generates a synthetic classification dataset (1,000 samples, 20 features).
+2. Splits it into train and test sets using a **stratified** 80/20 split.
+3. Builds a scikit-learn **Pipeline** (`RobustScaler` + `RandomForestClassifier`) so all preprocessing is learned only from the training data (no data leakage).
+4. Evaluates the pipeline with **5-fold Stratified Cross-Validation** using `balanced_accuracy`.
+5. Trains the final model on the full training set and evaluates it on the unseen test set.
+6. Logs parameters, metrics and the trained model to **MLflow**, and compares runs in the MLflow UI.
+
+### Project Structure
+```
+ai-ml-internship/
+├── train_test_cv.py    # training, cross-validation and MLflow logging
+├── mlflow.db           # MLflow tracking database (auto-created)
+├── mlruns/             # MLflow artifacts (auto-created)
+└── README.md
+```
+
+### Setup
+```bash
+python -m venv venv
+venv\Scripts\activate
+pip install numpy scikit-learn mlflow
+```
+
+### How to Run
+1. Start the MLflow server (keep this terminal open):
+   ```bash
+   mlflow ui
+   ```
+2. In a second terminal, run the script:
+   ```bash
+   python train_test_cv.py
+   ```
+3. Open http://127.0.0.1:5000 and go to **Training runs** to view the results.
+
+### What Gets Logged to MLflow
+| Type    | Items |
+|---------|-------|
+| Params  | model, scaler, n_estimators, n_splits_cv, scoring, test_size |
+| Metrics | cv_mean_score, cv_std_score, test_balanced_accuracy, test_accuracy |
+| Artifact| Trained sklearn pipeline (`model`) |
+
+### Results
+| Metric | Value |
+|--------|-------|
+| CV mean (balanced accuracy) | _fill in_ |
+| CV std | _fill in_ |
+| Test balanced accuracy | _fill in_ |
+| Test accuracy | _fill in_ |
+
+### Key Concepts Practised
+- Stratified train/test split to keep class ratios
+- Pipelines to prevent data leakage
+- Stratified K-Fold cross-validation
+- Experiment tracking and model logging with MLflow
+
+### Issues Faced and Fixes
+| Problem | Fix |
+|---------|-----|
+| Runs showed **Failed** with nothing logged | Script had no `mlflow.start_run()` block; added one and logged params, metrics and model |
+| `UntrustedTypesFoundException` on `log_model` | Passed `skops_trusted_types=["sklearn.tree._tree.Tree"]` (model was trained by me, so it is trusted) |
+| `OpenBLAS error: Memory allocation failed` | Limited threads with `OPENBLAS_NUM_THREADS=1` and set `n_jobs=2` |
+| Tracking URI error with `sqlite:///mlflow.db` | Pointed the script to the running server: `mlflow.set_tracking_uri("http://127.0.0.1:5000")` | 
+   
+# Week 2 Day 5 Project: End-to-End Preprocessing Pipeline with SMOTENC & MLflow
+
+## 🚀 Project Overview
+This module implements an end-to-end data preprocessing and classification pipeline designed to handle imbalanced datasets using `SMOTENC`, combined with scikit-learn preprocessing transformers and a `RandomForestClassifier`. The workflow also integrates `MLflow` for experiment tracking, parameter logging, and model artifact registration.
+
+---
+
+## 🛠️ Tech Stack & Libraries
+* **Python** (3.14+)
+* **Scikit-Learn** (`Pipeline`, `ColumnTransformer`, `StandardScaler`, `OneHotEncoder`, `SimpleImputer`)
+* **Imbalanced-Learn** (`ImbPipeline`, `SMOTENC`)
+* **MLflow** (Experiment tracking & model logging)
+* **Pytest** (Automated unit testing)
+
+---
+
+## 📂 Project Structure
+* `smote_pipeline.py` — Core implementation of the preprocessor, SMOTENC transformer, postprocessor, and MLflow logging workflow.
+* `tests/` or `test_pipeline.py` — Unit tests using `pytest` to validate pipeline fitting and prediction without runtime errors.
+* `requirements.txt` — Project dependencies.
+
+---
+
+## 🧪 Running Unit Tests
+To verify that the preprocessing pipeline, SMOTENC oversampling, and model predictions execute successfully on mock data, run:
+```bash
+pytest -v test_pipeline.py
