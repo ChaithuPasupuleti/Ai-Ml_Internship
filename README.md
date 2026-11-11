@@ -187,5 +187,38 @@ This module implements an end-to-end data preprocessing and classification pipel
 
 ## 🧪 Running Unit Tests
 To verify that the preprocessing pipeline, SMOTENC oversampling, and model predictions execute successfully on mock data, run:
-```bash
-pytest -v test_pipeline.py
+```bash 
+pytest -v test_pipeline.py  
+
+# Week 4 - Day 1: Advanced Linear Regression & Hyperparameter Tuning
+
+## 🎯 Objective
+The objective of this assignment is to move beyond standard baseline models by implementing hyperparameter tuning (`GridSearchCV`) for regularized linear models (**Ridge** and **Lasso**), evaluating performance using robust cross-validation, and tracking model parameters and metrics using **MLflow**.
+
+---
+
+## 🛠️ Project Structure
+* `linear_regression_assignment.py`: The complete end-to-end Python script containing data loading, grid search hyperparameter tuning, cross-validation, evaluation metrics, MLflow tracking, and plotting.
+* `mlruns/`: Local directory where MLflow logs run parameters, metrics, and model artifacts.
+
+---
+
+## 📊 Key Components Implemented
+1. **Dataset Loading**: Automatically loads the real-world **California Housing dataset** via `scikit-learn` (`fetch_california_housing`).
+2. **Hyperparameter Tuning (`GridSearchCV`)**:
+   * **Ridge Regression (L2 Penalty)**: Tuned across a grid of `alpha` values (`[0.01, 0.1, 1.0, 10.0, 100.0]`) with 5-fold cross-validation.
+   * **Lasso Regression (L1 Penalty)**: Tuned across a grid of `alpha` values (`[0.0001, 0.001, 0.01, 0.1, 1.0]`) with increased maximum iterations to ensure convergence.
+3. **Model Evaluation & Comparison**: Evaluates models on Test MSE, RMSE, MAE, $R^2$ Score, and Cross-Validation RMSE, compiling results into a clean comparison table.
+4. **MLflow Tracking**: Automatically starts an MLflow run, logs the best model name, final RMSE, and $R^2$ metrics, and logs the trained model artifact using updated API conventions (`name="model"`).
+5. **Visualization**: Generates dual-panel Matplotlib figures showcasing:
+   * **Actual vs. Predicted** scatter plot with an ideal fit reference line.
+   * **Residuals Plot** to inspect error distribution and variance patterns.
+
+---
+
+## 🚀 How to Run the Code
+
+1. **Activate your virtual environment** (if not already active):
+   ```powershell
+   # On Windows PowerShell
+   .\venv\Scripts\Activate
