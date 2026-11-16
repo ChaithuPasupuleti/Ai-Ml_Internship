@@ -279,4 +279,28 @@ logistic regression is a linear classifier. The overlap near the line is why
 ```bash
 pip install scikit-learn matplotlib seaborn numpy
 python logistic_regression.py
-```
+```  
+
+I need to add a W3D3 section to my existing README.md. Do not rewrite the whole file. Give me only a new section in Markdown that I can append at the end.
+
+Project: Week 3 Day 3, Decision Trees & Random Forests (AI/ML 3M stack, MLflow tracking)
+Files: w3d3_trees.py (main script), test_w3d3.py (3 pytest tests), tree.png (depth-3 tree visualisation)
+Dataset: scikit-learn Breast Cancer, 80/20 split, random_state=42
+
+What the script does:
+- Trains Decision Trees with criterion gini and entropy at max_depth None, 2, 3, 5, 8
+- Logs params and metrics (train_acc, test_acc, gap) for each run to MLflow experiment "w3d3-decision-trees"
+- Saves a depth-3 tree plot as tree.png
+- Trains a Random Forest (100 trees, max_depth 5) and logs rf-model and tree.png as artifacts
+
+Results:
+- Unlimited depth: train 1.000, test 0.947 (overfitting)
+- Gini depth 3: train 0.978, test 0.947
+- Entropy depth 3: train 0.980, test 0.965
+- Random Forest: train 0.993, test 0.965
+
+Key learnings: Gini vs entropy (information gain = drop in impurity), overfitting and how limiting max_depth reduces it, Random Forest reduces variance by averaging many trees.
+
+How to run: pip install scikit-learn matplotlib mlflow pytest, then python w3d3_trees.py, pytest test_w3d3.py -q, mlflow ui (http://127.0.0.1:5000)
+
+Include these headings: Overview, Files, How to Run, Results (as a table), Key Learnings. Keep it clear and under 50 lines. Match a simple, professional style. 
