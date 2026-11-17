@@ -187,5 +187,120 @@ This module implements an end-to-end data preprocessing and classification pipel
 
 ## 🧪 Running Unit Tests
 To verify that the preprocessing pipeline, SMOTENC oversampling, and model predictions execute successfully on mock data, run:
+```bash 
+pytest -v test_pipeline.py  
+
+# Week 3 - Day 1: Advanced Linear Regression & Hyperparameter Tuning
+
+## 🎯 Objective
+The objective of this assignment is to move beyond standard baseline models by implementing hyperparameter tuning (`GridSearchCV`) for regularized linear models (**Ridge** and **Lasso**), evaluating performance using robust cross-validation, and tracking model parameters and metrics using **MLflow**.
+
+---
+
+## 🛠️ Project Structure
+* `linear_regression_assignment.py`: The complete end-to-end Python script containing data loading, grid search hyperparameter tuning, cross-validation, evaluation metrics, MLflow tracking, and plotting.
+* `mlruns/`: Local directory where MLflow logs run parameters, metrics, and model artifacts.
+
+---
+
+## 📊 Key Components Implemented
+1. **Dataset Loading**: Automatically loads the real-world **California Housing dataset** via `scikit-learn` (`fetch_california_housing`).
+2. **Hyperparameter Tuning (`GridSearchCV`)**:
+   * **Ridge Regression (L2 Penalty)**: Tuned across a grid of `alpha` values (`[0.01, 0.1, 1.0, 10.0, 100.0]`) with 5-fold cross-validation.
+   * **Lasso Regression (L1 Penalty)**: Tuned across a grid of `alpha` values (`[0.0001, 0.001, 0.01, 0.1, 1.0]`) with increased maximum iterations to ensure convergence.
+3. **Model Evaluation & Comparison**: Evaluates models on Test MSE, RMSE, MAE, $R^2$ Score, and Cross-Validation RMSE, compiling results into a clean comparison table.
+4. **MLflow Tracking**: Automatically starts an MLflow run, logs the best model name, final RMSE, and $R^2$ metrics, and logs the trained model artifact using updated API conventions (`name="model"`).
+5. **Visualization**: Generates dual-panel Matplotlib figures showcasing:
+   * **Actual vs. Predicted** scatter plot with an ideal fit reference line.
+   * **Residuals Plot** to inspect error distribution and variance patterns.
+
+---
+
+## 🚀 How to Run the Code
+
+1. **Activate your virtual environment** (if not already active):
+   ```powershell
+   # On Windows PowerShell
+   .\venv\Scripts\Activate  
+
+   # Week 3 Day 2 :Logistic Regression: Breast Cancer Classification
+
+Binary classification on the scikit-learn Breast Cancer Wisconsin dataset
+(30 features; class 0 = malignant, class 1 = benign) using logistic regression.
+
+## Approach
+1. Loaded the dataset and split it into train and test sets (114 test samples).
+2. **Scaled features with `StandardScaler`.** Logistic regression is sensitive to
+   feature scale, and scaling helps the solver converge and keeps coefficients comparable.
+3. Trained a logistic regression model on all 30 features.
+4. Evaluated on the held-out test set and with 5-fold cross-validation.
+
+## Results
+
+| Metric | Value |
+|---|---|
+| Accuracy | 0.9561 |
+| Precision (class 1) | 0.9855 |
+| Recall (class 1) | 0.9444 |
+| F1 (class 1) | 0.9645 |
+| ROC-AUC | 0.9954 |
+| CV accuracy (5-fold) | 0.9754 ± 0.0102 |
+
+### Confusion matrix (test set)
+
+|  | Predicted malignant | Predicted benign |
+|---|---|---|
+| **Actual malignant** | 41 | 1 |
+| **Actual benign** | 4 | 68 |
+
+- 109 of 114 samples classified correctly (5 errors).
+- Malignant recall is 0.98: the model catches 41 of 42 malignant cases. In a
+  medical setting, missing a malignant case is the costlier error, so this matters most.
+- The 4 benign cases predicted as malignant are false alarms, which are generally
+  less costly than a missed malignancy.
+
+### ROC curve
+AUC = 0.9954. The curve stays near the top-left corner, so the model separates
+the classes well across thresholds.
+
+### Decision boundary
+The plot uses only the first 2 scaled features, **for visualization only**. The
+model itself is trained on all 30 features. The straight boundary reflects that
+logistic regression is a linear classifier. The overlap near the line is why
+2 features alone would score much lower than the full model.
+
+## Notes
+- CV accuracy (0.975) is slightly above test accuracy (0.956). On a test set this
+  small, one sample shifts accuracy by about 0.9%, so the gap is expected.
+- Possible next steps: tune the regularization strength `C`, compare with other
+  models (SVM, Random Forest), and adjust the decision threshold to prioritize recall.
+
+## Run
 ```bash
-pytest -v test_pipeline.py
+pip install scikit-learn matplotlib seaborn numpy
+python logistic_regression.py
+```  
+
+I need to add a W3D3 section to my existing README.md. Do not rewrite the whole file. Give me only a new section in Markdown that I can append at the end.
+
+Project: Week 3 Day 3, Decision Trees & Random Forests (AI/ML 3M stack, MLflow tracking)
+Files: w3d3_trees.py (main script), test_w3d3.py (3 pytest tests), tree.png (depth-3 tree visualisation)
+Dataset: scikit-learn Breast Cancer, 80/20 split, random_state=42
+
+What the script does:
+- Trains Decision Trees with criterion gini and entropy at max_depth None, 2, 3, 5, 8
+- Logs params and metrics (train_acc, test_acc, gap) for each run to MLflow experiment "w3d3-decision-trees"
+- Saves a depth-3 tree plot as tree.png
+- Trains a Random Forest (100 trees, max_depth 5) and logs rf-model and tree.png as artifacts
+
+Results:
+- Unlimited depth: train 1.000, test 0.947 (overfitting)
+- Gini depth 3: train 0.978, test 0.947
+- Entropy depth 3: train 0.980, test 0.965
+- Random Forest: train 0.993, test 0.965
+
+Key learnings: Gini vs entropy (information gain = drop in impurity), overfitting and how limiting max_depth reduces it, Random Forest reduces variance by averaging many trees.
+
+How to run: pip install scikit-learn matplotlib mlflow pytest, then python w3d3_trees.py, pytest test_w3d3.py -q, mlflow ui (http://127.0.0.1:5000)
+
+Include these headings: Overview, Files, How to Run, Results (as a table), Key Learnings. Keep it clear and under 50 lines. Match a simple, professional style. 
