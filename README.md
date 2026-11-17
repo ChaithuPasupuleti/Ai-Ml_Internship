@@ -40,6 +40,7 @@ Day 3 focuses on robust data ingestion, schema validation, missing value sanitiz
 * **Outputs:** Visualizations and plots saved to the project directory.
 *
 
+<<<<<<< HEAD
 
 # Week 2 Day 1: Feature Engineering Pipeline (Scaling, Encoding, & Selection)
 * **Objective:** Build an end-to-end, leak-free preprocessing and feature selection pipeline using `scikit-learn`.
@@ -304,3 +305,52 @@ Key learnings: Gini vs entropy (information gain = drop in impurity), overfittin
 How to run: pip install scikit-learn matplotlib mlflow pytest, then python w3d3_trees.py, pytest test_w3d3.py -q, mlflow ui (http://127.0.0.1:5000)
 
 Include these headings: Overview, Files, How to Run, Results (as a table), Key Learnings. Keep it clear and under 50 lines. Match a simple, professional style. 
+=======
+# W3D4: SVM vs KNN - When to Use What
+
+## What I did
+Compared SVM and KNN on the breast cancer dataset using GridSearchCV
+(5-fold CV, scoring = f1_weighted) and logged all runs to MLflow.
+Three experiments: SVM (scaled), KNN (scaled), KNN (unscaled).
+
+## Results
+| Model | Accuracy | F1 (weighted) | Fit time (s) | Predict time (s) | Best params |
+|---|---|---|---|---|---|
+| SVM scaled | 0.982 | 0.982 | 0.80 | 0.0014 | C=0.1, kernel=linear |
+| KNN scaled | 0.974 | 0.973 | 0.61 | 0.0049 | n_neighbors=7, weights=uniform |
+| KNN unscaled | 0.912 | 0.913 | 0.53 | 0.0044 | n_neighbors=5, weights=distance |
+
+## Observations
+- Scaling improved KNN accuracy from 0.912 to 0.974. KNN is distance-based,
+  so features with large numeric ranges dominate the distance when the
+  data is not scaled.
+- SVM gave the best accuracy (0.982) and the fastest prediction, but it
+  took slightly longer to fit than KNN. KNN has almost no training cost
+  but is slower at prediction time.
+- The best SVM kernel was linear, which suggests this dataset is close to
+  linearly separable.
+- The timings are very small because the dataset is small, so the speed
+  differences are only indicative.
+
+## When to use what
+- **KNN:** small, low-dimensional data. No training step, but slow at
+  prediction time, and it needs feature scaling.
+- **SVM:** high-dimensional data, and non-linear boundaries through
+  kernels. Slow on very large datasets, and it needs scaling and tuning
+  of C and the kernel. 
+
+  ## How to run
+```bash
+pip install -r requirements.txt
+python svm_knn_comparision.py
+mlflow ui   # then open http://127.0.0.1:5000
+```
+
+## Reproducibility
+- Random seed: 42 (train/test split, stratified 80/20)
+- Cross-validation: 5 folds, scoring = f1_weighted
+
+## MLflow artifacts
+Each run logs its best hyperparameters, metrics (accuracy, f1_weighted,
+fit and predict time) and the best model under "model".
+>>>>>>> 712e0bd (docs: add SVM vs KNN results, run instructions and when-to-use notes)
