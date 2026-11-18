@@ -389,4 +389,35 @@ mlflow ui   # then open http://127.0.0.1:5000
 
 ## MLflow artifacts
 Each run logs its best hyperparameters, metrics (accuracy, f1_weighted,
-fit and predict time) and the best model under "model".
+fit and predict time) and the best model under "model".  
+
+## W3D5 task: Hyperparameter Tuning
+with GridSearchCV and RandomizedSearchCV. I will add it to the bottom of my
+existing README, so start with a "## W3D5: Hyperparameter Tuning" heading
+and do not write a full project README.
+
+Details to use:
+- Files: hyperparameter_tuning.py (main script), test_tuning.py (pytest sanity test)
+- Dataset: Iris, 80/20 stratified split, random_state=42
+- Models: SVM (SVC) and KNN, each inside a Pipeline with StandardScaler
+- Methods: GridSearchCV and RandomizedSearchCV (5-fold CV, n_iter=20 for random search)
+- Tracking: MLflow with a local SQLite backend (sqlite:///mlflow.db);
+  logs best params, best_cv_score, test_accuracy and the best model
+- Results:
+  | Run | CV score | Test accuracy |
+  | SVM-GridSearch | 0.975 | 0.933 |
+  | SVM-RandomSearch | 0.975 | 1.000 |
+  | KNN-GridSearch | 0.967 | 0.933 |
+  | KNN-RandomSearch | 0.975 | 0.900 |
+- How to run:
+  python hyperparameter_tuning.py
+  mlflow ui --backend-store-uri sqlite:///mlflow.db
+  pytest test_tuning.py
+
+Include these sections: Overview, Files, Setup, How to Run, Results (table),
+Key Learnings (3 or 4 short bullets: GridSearch vs RandomSearch, why scaling
+matters for SVM and KNN, why a Pipeline avoids data leakage, small test set
+of 30 samples means one wrong prediction changes accuracy by about 3%).
+
+Keep it short, simple and beginner-friendly. Do not invent any numbers
+beyond the ones I gave.
