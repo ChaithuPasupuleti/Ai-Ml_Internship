@@ -19,8 +19,11 @@ Day 3 focuses on robust data ingestion, schema validation, missing value sanitiz
    Ensure your virtual environment is active and required packages are installed:
    ```bash
    pip install -r requirements.txt
+   ```
 
-   ## 📊 Day 4: Exploratory Data Analysis (EDA)
+---
+
+## 📊 Day 4: Exploratory Data Analysis (EDA)
 
 ### Files
 - `eda.py` - runs describe(), info(), null checks and saves all plots
@@ -28,7 +31,7 @@ Day 3 focuses on robust data ingestion, schema validation, missing value sanitiz
 - `eda_narrative.md` - 200-word EDA narrative
 - `outputs/` - distributions, correlation heatmap, top-10 category charts
 
-### Run
+---
 
 ### Day 5: Data Visualization (Matplotlib & Seaborn)
 * **Objective:** Complete hands-on tasks for exploratory data visualization using Matplotlib and Seaborn.
@@ -38,8 +41,8 @@ Day 3 focuses on robust data ingestion, schema validation, missing value sanitiz
   * Developed correlation heatmaps to identify feature relationships.
   * Authored exploratory data analysis (EDA) narratives and observations.
 * **Outputs:** Visualizations and plots saved to the project directory.
-*
 
+---
 
 # Week 2 Day 1: Feature Engineering Pipeline (Scaling, Encoding, & Selection)
 * **Objective:** Build an end-to-end, leak-free preprocessing and feature selection pipeline using `scikit-learn`.
@@ -52,7 +55,8 @@ Day 3 focuses on robust data ingestion, schema validation, missing value sanitiz
   * Generated side-by-side histograms comparing raw vs. standard-scaled numeric distributions.
   * Extracted and displayed feature importance scores for the top-selected features.
 * **Pull Request:** Merged via PR #5 (`feat: feature engineering – encoding, scaling & top-5 selection`).
-*
+
+---
 
 ### Week 2 Day 2: Feature Scaling, SelectKBest, and RFE Tasks
 
@@ -77,23 +81,27 @@ Day 2 focuses on advanced feature engineering techniques, examining how differen
 
 1. **Install Dependencies:** Ensure your environment has the required libraries installed:
    ```bash
-   pip install -r requirements.txt 
+   pip install -r requirements.txt
+   ```
 
-   ## Week 2 - Day 3: Imbalanced Data Pipeline & MLflow Tracking
+---
+
+## Week 2 - Day 3: Imbalanced Data Pipeline & MLflow Tracking
 
 ### 🚀 What Was Accomplished
 * **Imbalanced Dataset Handling:** Implemented a robust `imbalanced-learn` pipeline (`ImbPipeline`) integrating `SMOTENC` to handle mixed numerical and categorical features for class imbalance.
 * **Feature Processing Setup:** Configured a `ColumnTransformer` with `StandardScaler` for numerical attributes and an `OrdinalEncoder` for categorical columns.
 * **Model Training:** Trained a `RandomForestClassifier` (with 200 estimators and balanced class weights) on the resampled training split.
-* **MLflow Tracking Integration:** 
-  * Set up MLflow tracking experiments (`SMOTE_Imbalanced_Classification`)[span_0](start_span)[span_0](end_span).
-  * Logged key parameters (`model`, `n_estimators`, `class_weight`, `smote_k_neighbors`, `random_state`) and performance metrics (`precision macro`, `recall macro`, `f1 macro`)[span_1](start_span)[span_1](end_span)[span_2](start_span)[span_2](end_span).
+* **MLflow Tracking Integration:**
+  * Set up MLflow tracking experiments (`SMOTE_Imbalanced_Classification`).
+  * Logged key parameters (`model`, `n_estimators`, `class_weight`, `smote_k_neighbors`, `random_state`) and performance metrics (`precision macro`, `recall macro`, `f1 macro`).
   * Secured model logging using `skops_trusted_types` to whitelist custom third-party components like `SMOTENC`.
-* **Model Serialization:** Successfully exported and saved the end-to-end trained pipeline locally as `smote_rf_pipeline.pkl` for downstream inference[span_3](start_span)[span_3](end_span).
+* **Model Serialization:** Successfully exported and saved the end-to-end trained pipeline locally as `smote_rf_pipeline.pkl` for downstream inference.
 
 ### 📊 Evaluation Results
 * Evaluated model performance on the test set using classification reports, tracking macro averages and class-specific metrics to ensure reliable handling of minority classes.
-*  
+
+---
 
 # Week 2 day 4: Train/Test Split, Cross-Validation and MLflow Experiment Tracking
 
@@ -160,8 +168,10 @@ pip install numpy scikit-learn mlflow
 | Runs showed **Failed** with nothing logged | Script had no `mlflow.start_run()` block; added one and logged params, metrics and model |
 | `UntrustedTypesFoundException` on `log_model` | Passed `skops_trusted_types=["sklearn.tree._tree.Tree"]` (model was trained by me, so it is trusted) |
 | `OpenBLAS error: Memory allocation failed` | Limited threads with `OPENBLAS_NUM_THREADS=1` and set `n_jobs=2` |
-| Tracking URI error with `sqlite:///mlflow.db` | Pointed the script to the running server: `mlflow.set_tracking_uri("http://127.0.0.1:5000")` | 
-   
+| Tracking URI error with `sqlite:///mlflow.db` | Pointed the script to the running server: `mlflow.set_tracking_uri("http://127.0.0.1:5000")` |
+
+---
+
 # Week 2 Day 5 Project: End-to-End Preprocessing Pipeline with SMOTENC & MLflow
 
 ## 🚀 Project Overview
@@ -187,8 +197,11 @@ This module implements an end-to-end data preprocessing and classification pipel
 
 ## 🧪 Running Unit Tests
 To verify that the preprocessing pipeline, SMOTENC oversampling, and model predictions execute successfully on mock data, run:
-```bash 
-pytest -v test_pipeline.py  
+```bash
+pytest -v test_pipeline.py
+```
+
+---
 
 # Week 3 - Day 1: Advanced Linear Regression & Hyperparameter Tuning
 
@@ -221,9 +234,16 @@ The objective of this assignment is to move beyond standard baseline models by i
 1. **Activate your virtual environment** (if not already active):
    ```powershell
    # On Windows PowerShell
-   .\venv\Scripts\Activate  
+   .\venv\Scripts\Activate
+   ```
+2. **Run the script:**
+   ```powershell
+   python linear_regression_assignment.py
+   ```
 
-   # Week 3 Day 2 :Logistic Regression: Breast Cancer Classification
+---
+
+# Week 3 Day 2: Logistic Regression: Breast Cancer Classification
 
 Binary classification on the scikit-learn Breast Cancer Wisconsin dataset
 (30 features; class 0 = malignant, class 1 = benign) using logistic regression.
@@ -279,28 +299,125 @@ logistic regression is a linear classifier. The overlap near the line is why
 ```bash
 pip install scikit-learn matplotlib seaborn numpy
 python logistic_regression.py
-```  
+```
 
-I need to add a W3D3 section to my existing README.md. Do not rewrite the whole file. Give me only a new section in Markdown that I can append at the end.
+---
 
-Project: Week 3 Day 3, Decision Trees & Random Forests (AI/ML 3M stack, MLflow tracking)
-Files: w3d3_trees.py (main script), test_w3d3.py (3 pytest tests), tree.png (depth-3 tree visualisation)
-Dataset: scikit-learn Breast Cancer, 80/20 split, random_state=42
+# Week 3 Day 3: Decision Trees & Random Forests
 
-What the script does:
-- Trains Decision Trees with criterion gini and entropy at max_depth None, 2, 3, 5, 8
-- Logs params and metrics (train_acc, test_acc, gap) for each run to MLflow experiment "w3d3-decision-trees"
-- Saves a depth-3 tree plot as tree.png
-- Trains a Random Forest (100 trees, max_depth 5) and logs rf-model and tree.png as artifacts
+## Overview
+Trains Decision Trees and a Random Forest on the scikit-learn Breast Cancer
+dataset (80/20 split, `random_state=42`) and tracks every run with MLflow
+(AI/ML 3M stack).
 
-Results:
-- Unlimited depth: train 1.000, test 0.947 (overfitting)
-- Gini depth 3: train 0.978, test 0.947
-- Entropy depth 3: train 0.980, test 0.965
-- Random Forest: train 0.993, test 0.965
+## Files
+- `w3d3_trees.py` - main script. Trains Decision Trees with `gini` and `entropy`
+  at `max_depth` None, 2, 3, 5 and 8, and logs params and metrics (`train_acc`,
+  `test_acc`, `gap`) to the MLflow experiment `w3d3-decision-trees`. Saves a
+  depth-3 tree plot, then trains a Random Forest (100 trees, `max_depth=5`) and
+  logs `rf-model` and `tree.png` as artifacts.
+- `test_w3d3.py` - 3 pytest tests.
+- `tree.png` - depth-3 tree visualisation.
 
-Key learnings: Gini vs entropy (information gain = drop in impurity), overfitting and how limiting max_depth reduces it, Random Forest reduces variance by averaging many trees.
+## How to Run
+```bash
+pip install scikit-learn matplotlib mlflow pytest
+python w3d3_trees.py
+pytest test_w3d3.py -q
+mlflow ui   # http://127.0.0.1:5000
+```
 
-How to run: pip install scikit-learn matplotlib mlflow pytest, then python w3d3_trees.py, pytest test_w3d3.py -q, mlflow ui (http://127.0.0.1:5000)
+## Results
+| Model | Train acc | Test acc | Note |
+|---|---|---|---|
+| Decision Tree, unlimited depth | 1.000 | 0.947 | Overfitting |
+| Decision Tree, gini, depth 3 | 0.978 | 0.947 | |
+| Decision Tree, entropy, depth 3 | 0.980 | 0.965 | |
+| Random Forest (100 trees, depth 5) | 0.993 | 0.965 | |
 
-Include these headings: Overview, Files, How to Run, Results (as a table), Key Learnings. Keep it clear and under 50 lines. Match a simple, professional style. 
+## Key Learnings
+- Gini vs entropy: information gain is the drop in impurity after a split.
+- Overfitting: an unlimited-depth tree memorises the training data (train 1.000,
+  test 0.947). Limiting `max_depth` reduces the train/test gap.
+- Random Forest reduces variance by averaging many trees.
+
+---
+
+# Week 3 Day 4: SVM vs KNN - When to Use What
+
+## What I did
+Compared SVM and KNN on the breast cancer dataset using GridSearchCV
+(5-fold CV, scoring = f1_weighted) and logged all runs to MLflow.
+Three experiments: SVM (scaled), KNN (scaled), KNN (unscaled).
+
+## Results
+| Model | Accuracy | F1 (weighted) | Fit time (s) | Predict time (s) | Best params |
+|---|---|---|---|---|---|
+| SVM scaled | 0.982 | 0.982 | 0.80 | 0.0014 | C=0.1, kernel=linear |
+| KNN scaled | 0.974 | 0.973 | 0.61 | 0.0049 | n_neighbors=7, weights=uniform |
+| KNN unscaled | 0.912 | 0.913 | 0.53 | 0.0044 | n_neighbors=5, weights=distance |
+
+## Observations
+- Scaling improved KNN accuracy from 0.912 to 0.974. KNN is distance-based,
+  so features with large numeric ranges dominate the distance when the
+  data is not scaled.
+- SVM gave the best accuracy (0.982) and the fastest prediction, but it
+  took slightly longer to fit than KNN. KNN has almost no training cost
+  but is slower at prediction time.
+- The best SVM kernel was linear, which suggests this dataset is close to
+  linearly separable.
+- The timings are very small because the dataset is small, so the speed
+  differences are only indicative.
+
+## When to use what
+- **KNN:** small, low-dimensional data. No training step, but slow at
+  prediction time, and it needs feature scaling.
+- **SVM:** high-dimensional data, and non-linear boundaries through
+  kernels. Slow on very large datasets, and it needs scaling and tuning
+  of C and the kernel.
+
+## How to run
+```bash
+pip install -r requirements.txt
+python svm_knn_comparision.py
+mlflow ui   # then open http://127.0.0.1:5000
+```
+
+## Reproducibility
+- Random seed: 42 (train/test split, stratified 80/20)
+- Cross-validation: 5 folds, scoring = f1_weighted
+
+## MLflow artifacts
+Each run logs its best hyperparameters, metrics (accuracy, f1_weighted,
+fit and predict time) and the best model under "model".  
+
+## W3D5 task: Hyperparameter Tuning
+with GridSearchCV and RandomizedSearchCV. I will add it to the bottom of my
+existing README, so start with a "## W3D5: Hyperparameter Tuning" heading
+and do not write a full project README.
+
+Details to use:
+- Files: hyperparameter_tuning.py (main script), test_tuning.py (pytest sanity test)
+- Dataset: Iris, 80/20 stratified split, random_state=42
+- Models: SVM (SVC) and KNN, each inside a Pipeline with StandardScaler
+- Methods: GridSearchCV and RandomizedSearchCV (5-fold CV, n_iter=20 for random search)
+- Tracking: MLflow with a local SQLite backend (sqlite:///mlflow.db);
+  logs best params, best_cv_score, test_accuracy and the best model
+- Results:
+  | Run | CV score | Test accuracy |
+  | SVM-GridSearch | 0.975 | 0.933 |
+  | SVM-RandomSearch | 0.975 | 1.000 |
+  | KNN-GridSearch | 0.967 | 0.933 |
+  | KNN-RandomSearch | 0.975 | 0.900 |
+- How to run:
+  python hyperparameter_tuning.py
+  mlflow ui --backend-store-uri sqlite:///mlflow.db
+  pytest test_tuning.py
+
+Include these sections: Overview, Files, Setup, How to Run, Results (table),
+Key Learnings (3 or 4 short bullets: GridSearch vs RandomSearch, why scaling
+matters for SVM and KNN, why a Pipeline avoids data leakage, small test set
+of 30 samples means one wrong prediction changes accuracy by about 3%).
+
+Keep it short, simple and beginner-friendly. Do not invent any numbers
+beyond the ones I gave.

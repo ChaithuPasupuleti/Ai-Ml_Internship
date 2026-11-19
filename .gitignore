@@ -1,6 +1,6 @@
-mlflow*.db
-mlartifacts*/
-mlruns/
-
+venv/
 __pycache__/
+mlruns/
+mlartifacts*/
+mlflow*.db
 .pytest_cache/
