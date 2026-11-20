@@ -420,4 +420,161 @@ matters for SVM and KNN, why a Pipeline avoids data leakage, small test set
 of 30 samples means one wrong prediction changes accuracy by about 3%).
 
 Keep it short, simple and beginner-friendly. Do not invent any numbers
-beyond the ones I gave.
+beyond the ones I gave.  
+
+# W4D1: Model Evaluation Metrics - Precision, Recall, AUC
+
+AI/ML Internship - Week 4, Day 1
+
+## Overview
+
+This mini-project shows how accuracy can be misleading on an imbalanced binary classification problem (90% class 0, 10% class 1).
+
+What it covers:
+
+1. Train a Logistic Regression, with and without class-weight balancing.
+2. Report precision, recall, F1, ROC-AUC and PR-AUC together with a confusion matrix.
+3. Compare KFold vs StratifiedKFold cross-validation on the same data.
+4. Use learning curves to diagnose overfitting vs underfitting for Logistic Regression and two Decision Tree variants.
+5. Log parameters, metrics and plots to an MLflow experiment.
+
+## Project Structure
+
+```
+.
+├── eval_metrics.py      # data generation, model training, evaluation and plots
+├── cv_analysis.py       # KFold vs StratifiedKFold and learning curves
+├── mlflow_logging.py    # logs params, metrics and plots to MLflow
+├── test_metrics.py      # 3 pytest tests
+├── .gitignore
+└── README.md
+```
+
+Generated plots (saved in the project folder): `confusion.png`, `roc.png`, `pr.png`, `learning_curve.png`.
+
+## Setup
+
+Windows PowerShell:
+
+```powershell
+python -m venv venv
+venv\Scripts\activate
+pip install scikit-learn pandas matplotlib mlflow pytest
+```
+
+## How to Run
+
+Run the scripts in this order so the plots exist before MLflow logs them:
+
+```powershell
+python eval_metrics.py      # metrics, confusion matrix, ROC and PR plots
+python cv_analysis.py       # cross-validation and learning curves
+python mlflow_logging.py    # logs to experiment "w4d1-model-evaluation"
+pytest -v                   # 3 tests
+mlflow ui                   # open http://127.0.0.1:5000
+```
+
+`eval_metrics.py` evaluates one model per run. To switch between the two settings below, change `train_model()` to `train_model(balanced=True)` inside `main()` and run it again.
+
+## Results
+
+### 1. Logistic Regression evaluation
+
+| Setting | Accuracy | Class-1 Precision | Class-1 Recall | ROC-AUC | PR-AUC | Confusion Matrix |
+|---|---|---|---|---|---|---|
+| Without class weighting | 0.90 | 0.50 | 0.05 | 0.7965 | 0.3809 | [[356, 2], [40, 2]] |
+| `balanced=True` | 0.72 | 0.23 | 0.74 | 0.7874 | 0.3176 | [[256, 102], [11, 31]] |
+
+Accuracy looks high (0.90) but the unweighted model almost always predicts the majority class and finds only 2 of 42 real positives. Class weighting lowers accuracy but raises recall from 0.05 to 0.74, at the cost of more false alarms (FP 2 to 102).
+
+### 2. Cross-validation (5-fold)
+
+| Splitter | ROC-AUC (mean +/- std) | Precision std |
+|---|---|---|
+| KFold | 0.810 +/- 0.034 | 0.070 |
+| StratifiedKFold | 0.816 +/- 0.022 | 0.128 |
+
+Mean scores are almost the same. StratifiedKFold gave a more stable ROC-AUC (lower std) because every fold keeps the 90/10 class ratio. Its precision std was not lower, because the model predicts very few positives (recall about 0.04), so precision is computed from only a few predictions per fold.
+
+### 3. Learning curves (final ROC-AUC)
+
+| Model | Train | Validation | Diagnosis |
+|---|---|---|---|
+| Logistic Regression | 0.831 | 0.816 | Small gap, limited capacity |
+| Decision Tree (no depth limit) | 1.000 | 0.755 | Overfitting |
+| Decision Tree (max_depth=5) | 0.937 | 0.844 | Regularisation reduces overfitting |
+
+## Key Learnings
+
+- Accuracy alone is misleading on imbalanced data. Always check precision, recall and F1.
+- Precision-recall trade-off: catching more positives usually means more false alarms.
+- Prioritise recall when missing a positive is costly (for example fraud detection or medical screening).
+- PR-AUC is often more informative than ROC-AUC when the positive class is rare.
+- Stratified cross-validation keeps class ratios in every fold.
+- Learning curves show overfitting (high train, low validation) and underfitting (both low).
+
+## Screenshots
+
+![ROC Curve](roc.png)
+![Learning Curves](learning_curve.png)
+
+## Tech Stack
+
+Python, scikit-learn, matplotlib, MLflow, pytest  
+
+# W4D2: Bias-Variance Tradeoff & Regularisation
+
+Shows underfitting vs overfitting, how Ridge and Lasso regularisation help, and how Grid Search and Randomised Search tune hyperparameters, with runs logged in MLflow.
+
+## Setup
+```bash
+pip install -r requirements.txt
+```
+
+## How to run
+Run these from inside the `w4d2` folder:
+```bash
+python bias_variance.py
+python regularisation.py
+python tuning.py
+mlflow ui
+pytest
+```
+
+## Project structure
+- `data.py`: shared synthetic dataset, y = sin(x) + Gaussian noise (0.3), 100 samples, 70/30 train/validation split
+- `bias_variance.py`: train vs validation MSE for polynomial degrees 1 to 15, saves `bias_variance.png`
+- `regularisation.py`: Ridge (L2) vs Lasso (L1) on a degree-12 model, alpha chosen by 5-fold CV on the training set, plus a no-regularisation baseline
+- `tuning.py`: GridSearchCV vs RandomizedSearchCV (same KFold splits, 30 candidates each), logged to the MLflow experiment `w4d2-bias-variance`
+- `test_tuning.py`: 2 pytest tests
+- `requirements.txt`: dependencies
+- `evidence/`: output screenshots
+
+## Results
+| Model | Best alpha | Validation MSE |
+|---|---|---|
+| No regularisation (degree 12) | n/a | 0.0635 |
+| Ridge | 0.00003 | 0.0570 |
+| Lasso | 0.00001 | 0.0569 |
+
+- GridSearch: <paste your GridSearch line>
+- RandomSearch: <paste your RandomSearch line>
+
+## Key findings
+- Low-degree models underfit (high bias). High-degree models fit the training data closely but validation error rises (high variance).
+- Regularisation improved validation MSE modestly, from 0.0635 to about 0.057. The best alphas were at the low end of the range tested.
+- Lasso sets coefficients to exactly zero. At alpha 1 and above all 13 became zero, giving validation MSE 0.6576 (severe underfitting). Ridge only shrinks coefficients.
+- Grid Search tests only the listed values. Randomised Search samples alpha from a continuous range, so it can try values Grid never tests.
+
+## Notes
+CIA review suggested an equal search budget and shared CV folds, and both were applied. Other suggestions were rejected because the existing code already worked.
+
+## Evidence
+![Bias-variance](bias_variance.png)
+![Regularisation](evidence/01_regularisation_output.png)
+![Tuning](evidence/02_tuning_output.png)
+![MLflow](evidence/03_mlflow_compare.png)
+![pytest](evidence/04_pytest_passed.png)
+![git log](evidence/05_git_log.png)
+![CIA 1](evidence/06_cia_review_1.png)
+![CIA 2](evidence/07_cia_review_2.png)
