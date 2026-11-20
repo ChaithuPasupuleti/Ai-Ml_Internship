@@ -5,7 +5,7 @@ import mlflow
 from scipy.stats import loguniform
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_squared_error
-from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
+from sklearn.model_selection import GridSearchCV, KFold, RandomizedSearchCV
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import PolynomialFeatures, StandardScaler
 
@@ -16,10 +16,15 @@ def main():
     X_tr, X_val, y_tr, y_val = make_data()
     pipe = make_pipeline(PolynomialFeatures(), StandardScaler(), Ridge(max_iter=20000))
 
+    # Same CV folds for both searches, so the comparison is fair
+    cv = KFold(n_splits=5, shuffle=True, random_state=42)
+
+    # Grid: 6 degrees x 5 alphas = 30 combinations
     grid_space = {
         "polynomialfeatures__degree": [2, 4, 6, 8, 10, 12],
         "ridge__alpha": [0.001, 0.01, 0.1, 1, 10],
     }
+    # Random: samples alpha from a continuous range
     random_space = {
         "polynomialfeatures__degree": list(range(2, 13)),
         "ridge__alpha": loguniform(1e-4, 1e2),
@@ -27,9 +32,10 @@ def main():
 
     searches = [
         ("GridSearch", GridSearchCV(
-            pipe, grid_space, cv=5, scoring="neg_mean_squared_error")),
+            pipe, grid_space, cv=cv, scoring="neg_mean_squared_error")),
+        # n_iter=30 matches the 30 combinations Grid tries (equal budget)
         ("RandomSearch", RandomizedSearchCV(
-            pipe, random_space, n_iter=15, cv=5,
+            pipe, random_space, n_iter=30, cv=cv,
             scoring="neg_mean_squared_error", random_state=42)),
     ]
 

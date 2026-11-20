@@ -520,4 +520,21 @@ Mean scores are almost the same. StratifiedKFold gave a more stable ROC-AUC (low
 
 ## Tech Stack
 
-Python, scikit-learn, matplotlib, MLflow, pytest
+Python, scikit-learn, matplotlib, MLflow, pytest  
+
+# W4D2: Bias-Variance Tradeoff & Regularisation
+
+## Run
+pip install scikit-learn mlflow pandas matplotlib pytest
+python bias_variance.py
+python regularisation.py
+python tuning.py
+mlflow ui
+pytest
+
+## Files
+- data.py: shared synthetic data (sin(x) + noise)
+- bias_variance.py: train vs validation error across polynomial degrees
+- regularisation.py: Ridge vs Lasso with CV alpha selection
+- tuning.py: Grid vs Randomised Search, logged to MLflow
+- test_tuning.py: pytest tests
