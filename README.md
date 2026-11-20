@@ -522,19 +522,41 @@ Mean scores are almost the same. StratifiedKFold gave a more stable ROC-AUC (low
 
 Python, scikit-learn, matplotlib, MLflow, pytest  
 
-# W4D2: Bias-Variance Tradeoff & Regularisation
+# W4D2 task: Bias-Variance Tradeoff & Regularisation.
+Keep it short, clear and professional, in Markdown.
 
-## Run
-pip install scikit-learn mlflow pandas matplotlib pytest
-python bias_variance.py
-python regularisation.py
-python tuning.py
-mlflow ui
-pytest
+Project details:
+- Folder: w4d2. Python, scikit-learn, MLflow, pytest.
+- Data: synthetic, y = sin(x) + Gaussian noise (0.3), 100 samples,
+  70/30 train/validation split, shared via data.py.
 
-## Files
-- data.py: shared synthetic data (sin(x) + noise)
-- bias_variance.py: train vs validation error across polynomial degrees
-- regularisation.py: Ridge vs Lasso with CV alpha selection
-- tuning.py: Grid vs Randomised Search, logged to MLflow
-- test_tuning.py: pytest tests
+Files:
+- data.py: shared dataset function make_data()
+- bias_variance.py: train vs validation MSE for polynomial degrees 1-15,
+  saves bias_variance.png
+- regularisation.py: Ridge (L2) vs Lasso (L1) on a degree-12 model,
+  alpha chosen by 5-fold CV on the training set, plus a no-regularisation baseline
+- tuning.py: GridSearchCV vs RandomizedSearchCV (same KFold splits, 30 candidates
+  each), logged to MLflow experiment "w4d2-bias-variance"
+- test_tuning.py: 2 pytest tests
+
+Results to include:
+- No regularisation: val MSE 0.0635
+- Best Ridge: alpha 0.00003, val MSE 0.0570
+- Best Lasso: alpha 0.00001, val MSE 0.0569; at alpha >= 1 all 13 coefficients
+  become zero (val MSE 0.6576, underfitting)
+- Grid Search: <paste your GridSearch line>
+- Random Search: <paste your RandomSearch line>
+
+Sections to include:
+1. Title and one-line description
+2. Setup (pip install scikit-learn mlflow pandas matplotlib pytest)
+3. How to run (python bias_variance.py, regularisation.py, tuning.py,
+   mlflow ui, pytest)
+4. Project structure
+5. Key findings (3-4 bullets on bias vs variance, Ridge vs Lasso,
+   Grid vs Random)
+6. Notes: CIA review suggested equal search budget and shared CV folds (applied);
+   other suggestions were rejected because the existing code already worked.
+
+Do not invent any numbers beyond those I gave.
