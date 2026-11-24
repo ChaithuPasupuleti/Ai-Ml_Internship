@@ -1,0 +1,8 @@
+venv/
+mlruns/
+mlartifacts/
+mlflow.db
+model.joblib
+threshold.txt
+__pycache__/
+.pytest_cache/
