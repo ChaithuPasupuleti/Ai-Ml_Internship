@@ -76,7 +76,18 @@ Invalid input (wrong length or non-numeric values) returns HTTP 422.
 ## Tests
 
 - `test_api.py`: health check, valid prediction, wrong length (422), wrong type (422)
-- `test_training.py`: training runs, creates `model.joblib`, F1 above 0.5 baseline
+- `test_training.py`: training runs, creates `model.joblib`, F1 above 0.5 baseline  
+
+## Output evidence
+
+### Training output
+![Training output](screenshots/train_output.png)
+
+### Test results (5 passed)
+![pytest results](screenshots/pytest_output.png)
+
+### API response from /docs
+![Swagger predict response](screenshots/docs_predict.png)
 
 ## CIA reviews (Full Stack Mentor Mode)
 
