@@ -104,4 +104,4 @@ Invalid input (wrong length or non-numeric values) returns HTTP 422.
 - [x] Branch `feat/aiml-W4d4-chaithanya` pushed
 - [x] 2 CIA interactions completed
 - [x] Output evidence: training output, pytest result, `/docs` response
-- [ ] Pull request raised
+- [x] Pull request raised
