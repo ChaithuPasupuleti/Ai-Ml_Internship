@@ -577,4 +577,49 @@ CIA review suggested an equal search budget and shared CV folds, and both were a
 ![pytest](evidence/04_pytest_passed.png)
 ![git log](evidence/05_git_log.png)
 ![CIA 1](evidence/06_cia_review_1.png)
-![CIA 2](evidence/07_cia_review_2.png)
+![CIA 2](evidence/07_cia_review_2.png)  
+
+
+# W4D5: Classification Comparison (Logistic Regression vs Random Forest)
+
+Binary classification on scikit-learn's built-in Breast Cancer Wisconsin dataset. Two models are trained and compared on accuracy, precision, recall and ROC-AUC.
+
+### Files
+- `classification_comparison.ipynb`: the full notebook (training, evaluation, plots, conclusion)
+
+### Approach
+1. Load the dataset with `load_breast_cancer`.
+2. Split 80/20 with `random_state=42` and `stratify=y`.
+3. Scale features with `StandardScaler`, fitted on the training set only to avoid data leakage.
+4. Train `LogisticRegression(max_iter=1000)` on the scaled data and print the `classification_report`.
+5. Plot the confusion matrix and ROC curve for Logistic Regression.
+6. Train `RandomForestClassifier(n_estimators=200, random_state=42)` on the unscaled data.
+7. Compare both models in a table and on a combined ROC plot.
+
+### Results (test set, 114 samples)
+
+| Model | Accuracy | Precision | Recall | ROC-AUC |
+|---|---|---|---|---|
+| Logistic Regression | 0.9825 | 0.9861 | 0.9861 | 0.9954 |
+| Random Forest | 0.9561 | 0.9589 | 0.9722 | 0.9931 |
+
+### Conclusion
+Logistic Regression slightly outperformed Random Forest on every metric. The dataset is clean and mostly linearly separable, so the simpler model performs as well as or better than the ensemble. These results come from a single 80/20 split, so the small gap may change with a different split.
+
+### How to run
+```bash
+python -m venv venv
+venv\Scripts\activate          # Windows
+pip install scikit-learn matplotlib numpy pandas ipykernel
+```
+Open `classification_comparison.ipynb`, select the `venv` kernel, and run all cells in order.
+
+### Git workflow
+- Branch: `feat/aiml-W4-chaithanya`
+- Commits follow the format `feat: <description>`
+- Changes are pushed to the branch and merged through a pull request  
+
+## Evidence
+![Logistic Regression report](screenshots/w4d5_01_logreg_report.png)
+![Confusion matrix and ROC](screenshots/w4d5_02_logreg_confusion_roc.png)
+![Model comparison](screenshots/w4d5_03_model_comparison.png)
