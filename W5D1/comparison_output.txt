@@ -1,0 +1,24 @@
+
+=== Explain recursion to a beginner.
+
+[llama3.2:3b] (29.6 sec, 64 words)
+Recursion is a programming technique where a function calls itself, repeating a set of instructions until a base case is met, at which point the function returns. This process allows functions to solve complex problems by breaking them down into smaller, simpler versions of themselves. Think of recursion like a set of Russian nesting dolls, where each doll contains a smaller version of itself.
+
+[qwen2.5:3b] (66.2 sec, 48 words)
+Recursion is when a function calls itself to solve smaller instances of the same problem, eventually leading to base cases that are solved directly. Think of it as solving a puzzle by breaking it down into smaller, identical puzzles until you can solve the smallest ones without help.
+
+=== What is the difference between a list and a tuple in Python?
+
+[llama3.2:3b] (112.7 sec, 53 words)
+In Python, a list and a tuple are both data structures that store multiple values, but the key difference lies in their mutability. Lists are mutable, meaning their contents can be modified after creation, whereas tuples are immutable, meaning their contents cannot be changed. This difference affects performance and usage in certain scenarios.
+
+[qwen2.5:3b] (21.7 sec, 32 words)
+In Python, a list is mutable, meaning its elements can be changed, added, or removed after it is created, while a tuple is immutable, meaning once created, its contents cannot be altered.
+
+=== Summarize what Git branching is in 2 sentences.
+
+[llama3.2:3b] (35.4 sec, 61 words)
+Git branching is a mechanism that allows developers to create separate lines of development in a repository, enabling them to work on different features or changes without affecting the main codebase. A branch is essentially a copy of the entire repository, allowing developers to make changes, test, and iterate on their work independently before merging it back into the main branch.
+
+[qwen2.5:3b] (36.6 sec, 36 words)
+Git branching creates copies of a project's history, allowing developers to work on new features without affecting the main codebase. These branches can be merged back into the main branch once they are complete and tested.
